@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* LEFT DASHBOARD */
+    .LeftDashboard {
+      width: 20%;
+      height: 100vh;
+      background-color: #272727;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* LOGO SECTION */
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+
+    .Logo img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .Logo h1 {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* DASHBOARD MENU */
+    .DashboardControls {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 120px);
+      overflow: hidden;
+    }
+
+    .MainButtons {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .LowerButtons {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      width: 100%;
+    }
+
+    .DashboardControls button {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #272727;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: left;
+      padding-left: 20px;
+      transition: background 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .DashboardControls button:hover {
+      background-color: #00aaff !important;
+      color: white;
+    }
+
+    .DashboardControls button.active {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .button-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    /* WELCOME BANNER */
+    .WelcomeBanner {
+      background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+      padding: 20px;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+    }
+
+    .WelcomeBanner h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin-left: 10px;
+    }
+
+    /* RIGHT CONTENT */
+    .RightContent {
+      width: 80%;
+      height: 100vh;
+      background: url('assets/Mainpage.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .Slogan h1 {
+      font-size: 80px;
+      color: #ffffff;
+      line-height: 1.2;
+      padding-top: 40px;
+      margin-left: 60px;
+    }
+
+    .Slogan p {
+      font-size: 30px;
+      color: #ffffff;
+      margin-left: 60px;
+    }
+
+    .BTNappointment {
+      position: absolute;
+      margin-top: 500px;
+      margin-left: 50px;
+    }
+
+    .BTNappointment button {
+      padding: 15px 30px;
+      font-size: 40px;
+      color: white;
+      background-color: #2b4257;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .BTNappointment button:hover {
+      background-color: #0066ff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LEFT SIDEBAR -->
+  <div class="LeftDashboard">
+    <div class="Logo">
+      <img src="assets/Logo-Notitle.png" alt="Logo">
+      <h1>HealthCheck</h1>
+    </div>
+
+    <div class="DashboardControls">
+      <div class="MainButtons">
+        <button class="nav-btn active" data-page="home"><span class="button-icon">🏠</span> Home</button>
+        <button class="nav-btn" data-page="consultations"><span class="button-icon">🩺</span> Consultations</button>
+        <button class="nav-btn" data-page="appointments"><span class="button-icon">📅</span> Appointments</button>
+        <button class="nav-btn" data-page="account"><span class="button-icon">👤</span> Account</button>
+      </div>
+
+      <div class="LowerButtons">
+ 
+        <button class="nav-btn" data-page="logout"><span class="button-icon">🚪</span> Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT CONTENT WITH BANNER ONLY -->
+  <div class="RightContent">
+    <div class="WelcomeBanner">
+      <h1>Welcome back,<br>Dr. John Cena</h1>
+    </div>
+    <div class="Slogan">
+      <h1>
+        YOUR HEALTH, <br>IS OUR PRIORITY
+      </h1>
+      <p>
+        Book free checkups and consultations anytime, anywhere.
+      </p>
+    </div>
+
+    <div class="BTNappointment">
+      <button id="consultPatientBtn">Consult A Patient</button>
+    </div>
+  </div>
+
+  <script>
+    // Wait until DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Get all navigation buttons
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const consultPatientBtn = document.getElementById('consultPatientBtn');
+
+      // Navigation function
+      function navigateToPage(page) {
+        switch (page) {
+          case 'home':
+            // Already on home page, do nothing
+            console.log('Already on Home page');
+            break;
+          case 'consultations':
+            window.location.href = "DoctorConsultation.html";
+            break;
+          case 'appointments':
+            window.location.href = "DoctorAppointment.html";
+            break;
+          case 'account':
+            window.location.href = "DoctorProfile.html";
+            break;
+          case 'call-center':
+            // For call center, use tel: link
+            if (confirm('Call HealthCheck Support at 1-800-HEALTHY?')) {
+              window.location.href = "tel:1-800-HEALTHY";
+            }
+            break;
+          case 'help':
+            window.location.href = "DoctorHelp.html";
+            break;
+          case 'logout':
+            // Logout functionality
+            if (confirm('Are you sure you want to log out?')) {
+              window.location.href = "Login.html";
+            }
+            break;
+          default:
+            console.log('Unknown page:', page);
+        }
+      }
+
+      // Handle Consult A Patient button
+      consultPatientBtn.addEventListener("click", () => {
+        window.location.href = "DoctorConsultation.html";
+      });
+
+      // Add event listeners to all navigation buttons
+      navButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const page = this.getAttribute('data-page');
+          navigateToPage(page);
+        });
+      });
+
+      // Update active state based on current page
+      function updateActiveState() {
+        navButtons.forEach(button => {
+          button.classList.remove('active');
+        });
+
+        // Set current page as active (Home page in this case)
+        const currentPageButton = document.querySelector('.nav-btn[data-page="home"]');
+        if (currentPageButton) {
+          currentPageButton.classList.add('active');
+        }
+      }
+
+      // Initialize active state
+      updateActiveState();
+
+      console.log('HealthCheck Doctor Dashboard initialized successfully');
+    });
+  </script>
+</body>
+
+</html>

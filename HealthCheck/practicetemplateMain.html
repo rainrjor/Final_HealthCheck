@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+      /* Remove the border property as it was adding extra space */
+      
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden; /* Prevent scrolling on the entire page */
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      /* Add overflow hidden to body as well */
+      overflow: hidden;
+    }
+
+    .LeftDashboard {
+      width: 20%;
+      height: 100vh;
+      background-color: #272727;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      color: white;
+      position: relative;
+      /* Prevent scrolling in the left panel */
+      overflow: hidden;
+    }
+
+    /* LOGO SECTION */
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+
+    .Logo img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .Logo h1 {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* DASHBOARD MENU */
+    .DashboardControls {
+      margin-top: 5px;
+      /* to align with the welcome banner */
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 120px);
+      /* Prevent overflow */
+      overflow: hidden;
+    }
+
+    .MainButtons {
+      flex-grow: 1;
+      /* Prevent button overflow */
+      overflow: hidden;
+    }
+
+    .LowerButtons {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      width: 100%;
+    }
+
+    .DashboardControls button {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #272727;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: center;
+      padding-left: 20px;
+      transition: background 0.3s;
+      width: 100%;
+    }
+
+    .DashboardControls button:hover {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .RightContent {
+      width: 80%;
+      height: 100vh;
+      background-color: #f4f4f4;
+      /* Change from auto to hidden to remove scrollbar */
+      overflow: hidden;
+    }
+
+    .WelcomeBanner {
+      background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+      border-radius: 0px;
+      padding: 10px;
+      color: white;
+      margin-bottom: 0px;
+      box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+    }
+
+    .WelcomeBanner h1 {
+      font-size: 42px;
+      margin-bottom: 0px;
+      line-height: 1.2;
+      margin-left: 10px;
+    }
+
+    .Rightsideimage {
+      width: 100%;
+      height: calc(100vh - 100px); /* Adjust height to account for banner */
+      background: url('assets/Mainpage.png') no-repeat center center;
+      background-size: cover;
+    }
+
+
+
+
+
+
+    .Slogan h1 {
+      font-size: 90px;
+      color: #ffffff;
+      line-height: 1.2;
+      padding-top: 40px;
+      margin-left: 60px ;
+      
+    }
+
+
+    .Slogan p {
+      font-size: 30px;
+      color: #ffffff;
+
+       margin-left: 60px ;
+    }
+
+
+
+        .BTNappointment {
+      position: absolute;
+      margin-top: 100px;
+      margin-left: 50px ;
+    
+    }
+
+    .BTNappointment button {
+      padding: 15px 30px;
+      font-size: 30px;
+      color: white;
+      background-color: #2b4257;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .BTNappointment button:hover {
+      background-color: #0066ff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="LeftDashboard">
+    <div class="Logo">
+      <img src="assets/Logo-Notitle.png" alt="Logo">
+      <h1>HealthCheck</h1>
+    </div>
+
+    <div class="DashboardControls">
+      <div class="MainButtons">
+        <button>Home</button>
+        <button>Services</button>
+        <button>Status</button>
+        <button>Appointments</button>
+        <button>Account</button>
+      </div>
+
+      <div class="LowerButtons">
+        <button>Call Center</button>
+        <button>Help</button>
+        <button>Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="RightContent">
+    <div class="WelcomeBanner">
+      <h1>Welcome back,<br>John Cena</h1>
+    </div>
+
+    <div class="Rightsideimage">
+
+      <div class="Slogan">
+
+        <h1>
+          YOUR HEALTH, <br>IS OUR PRIORITY
+        </h1>
+
+        <p>
+          Book free checkups and consultations anytime, anywhere.
+        </p>
+
+      </div>
+      <!-- Decorative image or illustration -->
+       <div class="BTNappointment">
+        <button>Book an Appointment </button>
+       </div>
+
+
+    </div>
+  </div>
+</body>
+
+</html>

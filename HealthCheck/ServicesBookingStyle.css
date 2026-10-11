@@ -1,0 +1,505 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LEFT DASHBOARD */
+.LeftDashboard {
+  width: 20%;
+  height: 100vh;
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* LOGO SECTION */
+.Logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.Logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.Logo h1 {
+  font-size: 35px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* DASHBOARD MENU */
+.DashboardControls {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 120px);
+  overflow: hidden;
+}
+
+.MainButtons {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.LowerButtons {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  width: 100%;
+}
+
+.DashboardControls button {
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #272727;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 20px;
+  transition: background 0.3s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.DashboardControls button:hover {
+  background-color: #00aaff !important;
+  color: white;
+}
+
+.DashboardControls button.active {
+  background-color: #00aaff;
+  color: white;
+}
+
+.button-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* RIGHT CONTENT */
+.RightContent {
+  width: 80%;
+  height: 100vh;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* WELCOME BANNER */
+.WelcomeBanner {
+  background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+  padding: 20px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+}
+
+.WelcomeBanner h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-left: 10px;
+}
+
+/* APPOINTMENT CONTENT */
+.AppointmentContent {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Doctor Header Section */
+.DoctorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.BackButton {
+  background: none;
+  border: none;
+  color: #0066ff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.BackButton:hover {
+  color: #00aaff;
+}
+
+.DoctorInfo {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.DoctorInfo h2 {
+  font-size: 32px;
+  color: #0066ff;
+  margin-bottom: 10px;
+}
+
+.DoctorInfo h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.DoctorDescription {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+.DoctorSchedule {
+  display: flex;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+.ScheduleItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.ScheduleItem .label {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.ScheduleItem .value {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Form Section */
+.BookingForm {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+}
+
+.FormSection {
+  margin-bottom: 30px;
+}
+
+.FormSection h3 {
+  font-size: 20px;
+  color: #0066ff;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.FormRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.FormGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.FormGroup label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.FormGroup input,
+.FormGroup select,
+.FormGroup textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+.FormGroup input:focus,
+.FormGroup select:focus,
+.FormGroup textarea:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+.FormGroup textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.FileUpload {
+  border: 2px dashed #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border 0.3s;
+}
+
+.FileUpload:hover {
+  border-color: #00aaff;
+}
+
+.FileUpload input {
+  display: none;
+}
+
+.FileUploadLabel {
+  font-size: 16px;
+  color: #777;
+}
+
+.FileNote {
+  font-size: 14px;
+  color: #999;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.BookNowButton {
+  background-color: #2b4257;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 15px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.BookNowButton:hover {
+  background-color: #0066ff;
+}
+
+/* MODAL STYLES */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #00aaff;
+}
+
+.modal-header h2 {
+  color: #0066ff;
+  font-size: 24px;
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  color: #ff4444;
+}
+
+.modal-body {
+  margin-bottom: 25px;
+}
+
+.appointment-summary {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.summary-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.summary-value {
+  color: #333;
+  text-align: right;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.modal-button.confirm {
+  background-color: #00aaff;
+  color: white;
+}
+
+.modal-button.confirm:hover {
+  background-color: #0066ff;
+}
+
+.modal-button.cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.modal-button.cancel:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .DoctorHeader {
+    flex-direction: column;
+  }
+
+  .DoctorInfo {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .FormRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .DoctorSchedule {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-content {
+    margin: 20% auto;
+    width: 95%;
+    padding: 20px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+}
+
+.doctorimagename img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.doctorimagename h3 {
+  font-size: 50px;
+  color: #333;
+  display: inline-block;
+  vertical-align: middle;
+}

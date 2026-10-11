@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck Dashboard - Services</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .LeftDashboard {
+      width: 20%;
+      height: 100vh;
+      background-color: #272727;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* LOGO SECTION */
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+
+    .Logo img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .Logo h1 {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* DASHBOARD MENU */
+    .DashboardControls {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 120px);
+      overflow: hidden;
+    }
+
+    .MainButtons {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .LowerButtons {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      width: 100%;
+    }
+
+    .DashboardControls button {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #272727;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: left;
+      padding-left: 20px;
+      transition: background 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .DashboardControls button:hover {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .button-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    .RightContent {
+      width: 80%;
+      height: 100vh;
+      background-color: #f4f4f4;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .WelcomeBanner {
+      background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+      padding: 20px;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+    }
+
+    .WelcomeBanner h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin-left: 10px;
+    }
+
+    /* Services Content */
+    .ServicesContent {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .ServicesHeader {
+      margin-bottom: 30px;
+    }
+
+    .ServicesHeader h2 {
+      font-size: 32px;
+      color: #0066ff;
+      margin-bottom: 10px;
+    }
+
+    .ServicesHeader p {
+      font-size: 18px;
+      color: #666;
+      max-width: 800px;
+    }
+
+    .ServicesGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .ServiceCard {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column; /* Stack content vertically */
+    }
+
+    .ServiceCard:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .ServiceIcon {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #0066ff;
+    }
+
+    .ServiceCard h3 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .ServiceCard p {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .ServiceFeatures {
+      margin-top: 10px;
+      list-style-type: none;
+      flex-grow: 1; /* Allows list to expand */
+    }
+
+    .ServiceFeatures li {
+      padding: 5px 0;
+      font-size: 15px;
+      color: #555;
+      display: flex;
+      align-items: center;
+    }
+
+    .ServiceFeatures li:before {
+      content: "✓";
+      color: #00aaff;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .BookButton {
+      margin-top: auto; /* Push button to bottom */
+      padding: 12px;
+      background-color: #2b4257;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      width: 100%; /* Equal width */
+      text-align: center;
+    }
+
+    .BookButton:hover {
+      background-color: #0066ff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      .ServicesGrid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .ServicesGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="LeftDashboard">
+    <div class="Logo">
+      <img src="assets/Logo-Notitle.png" alt="Logo">
+      <h1>HealthCheck</h1>
+    </div>
+
+    <div class="DashboardControls">
+      <div class="MainButtons">
+        <button><span class="button-icon">🏠</span> Home</button>
+        <button style="background-color: #00aaff;"><span class="button-icon">🩺</span> Services</button>
+        <button><span class="button-icon">📊</span> Status</button>
+        <button><span class="button-icon">📅</span> Appointments</button>
+        <button><span class="button-icon">👤</span> Account</button>
+      </div>
+
+      <div class="LowerButtons">
+        <button><span class="button-icon">📞</span> Call Center</button>
+        <button><span class="button-icon">❓</span> Help</button>
+        <button><span class="button-icon">🚪</span> Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="RightContent">
+    <div class="WelcomeBanner">
+      <h1>Welcome back,<br>John Cena</h1>
+    </div>
+
+    <div class="ServicesContent">
+      <div class="ServicesHeader">
+        <h2>Our Medical Services</h2>
+        <p>We offer a comprehensive range of healthcare services provided by experienced specialists. Book your consultation today.</p>
+      </div>
+
+      <div class="ServicesGrid">
+        <!-- Service 1 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">👨‍⚕️</div>
+          <h3>General Physician Consultation</h3>
+          <p>Comprehensive health assessments and treatment for common medical conditions.</p>
+          <ul class="ServiceFeatures">
+            <li>Routine check-ups</li>
+            <li>Diagnosis and treatment</li>
+            <li>Preventive care</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">👶</div>
+          <h3>Pediatrics Consultation</h3>
+          <p>Specialized healthcare for infants, children, and adolescents.</p>
+          <ul class="ServiceFeatures">
+            <li>Child wellness exams</li>
+            <li>Common illness</li>
+            <li>Growth monitoring</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">🔬</div>
+          <h3>Dermatologist Consultation</h3>
+          <p>Expert care for skin, hair, and nail conditions.</p>
+          <ul class="ServiceFeatures">
+            <li>Skin conditions assessment</li>
+            <li>Acne treatment</li>
+            <li>Cosmetic dermatology</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">👩‍⚕️</div>
+          <h3>OB-Gyne Consultation</h3>
+          <p>Comprehensive care for women’s reproductive health, pregnancy, and gynecological concerns.</p>
+          <ul class="ServiceFeatures">
+            <li>Prenatal and postnatal check-ups</li>
+            <li>Reproductive health counseling</li>
+            <li>Diagnosis and treatment of gynecological issues</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">👨‍👩‍👧‍👦</div>
+          <h3>Family Physician Consultation</h3>
+          <p>Comprehensive healthcare for individuals and families of all ages.</p>
+          <ul class="ServiceFeatures">
+            <li>Whole-family care</li>
+            <li>Chronic disease management</li>
+            <li>Preventive services</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">🧠</div>
+          <h3>Psychological Consultation</h3>
+          <p>Professional support for mental health and emotional well-being through therapy and counseling.</p>
+          <ul class="ServiceFeatures">
+            <li>Individual therapy</li>
+            <li>Stress and anxiety management</li>
+            <li>Cognitive-behavioral techniques</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+
+        <!-- Service 7 -->
+        <div class="ServiceCard">
+          <div class="ServiceIcon">🥗</div>
+          <h3>Lifestyle Medicine Consultation</h3>
+          <p>Evidence-based approach to preventing and treating disease through lifestyle changes.</p>
+          <ul class="ServiceFeatures">
+            <li>Nutrition counseling</li>
+            <li>Exercise prescription</li>
+            <li>Stress management</li>
+          </ul>
+          <button class="BookButton">Book Consultation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

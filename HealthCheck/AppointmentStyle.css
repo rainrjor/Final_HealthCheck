@@ -1,0 +1,247 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LEFT DASHBOARD */
+.LeftDashboard {
+  width: 20%;
+  height: 100vh;
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* LOGO SECTION */
+.Logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.Logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.Logo h1 {
+  font-size: 35px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* DASHBOARD MENU */
+.DashboardControls {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 120px);
+  overflow: hidden;
+}
+
+.MainButtons {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.LowerButtons {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  width: 100%;
+}
+
+.DashboardControls button {
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #272727;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 20px;
+  transition: background 0.3s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.DashboardControls button:hover {
+  background-color: #00aaff;
+  color: white;
+}
+
+.button-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* RIGHT CONTENT */
+.RightContent {
+  width: 80%;
+  height: 100vh;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* WELCOME BANNER */
+.WelcomeBanner {
+  background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+  padding: 20px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+}
+
+.WelcomeBanner h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-left: 10px;
+}
+
+/* APPOINTMENTS CONTENT */
+.AppointmentsContent {
+  flex: 1;
+  padding: 30px;
+}
+
+.ContentHeader {
+  margin-bottom: 30px;
+}
+
+.ContentHeader h2 {
+  font-size: 32px;
+  color: #0066ff;
+  margin-bottom: 10px;
+}
+
+.ContentHeader p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* APPOINTMENTS TABLE */
+.AppointmentsTable {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #f8f9fa;
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 18px;
+}
+
+td {
+  padding: 20px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 16px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+.GmeetLink {
+  color: #0066ff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #e6f2ff;
+  display: inline-block;
+}
+
+.GmeetLink:hover {
+  background-color: #0066ff;
+  color: white;
+}
+
+.Status {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Status.approved {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.Status.pending {
+  background-color: #fef7e0;
+  color: #b06000;
+}
+
+.Status.declined {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+.StatusIcon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .AppointmentsTable {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  th,
+  td {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+}

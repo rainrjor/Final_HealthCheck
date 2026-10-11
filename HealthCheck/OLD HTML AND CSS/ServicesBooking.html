@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck Dashboard - Book Appointment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* LEFT DASHBOARD */
+    .LeftDashboard {
+      width: 20%;
+      height: 100vh;
+      background-color: #272727;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* LOGO SECTION */
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+
+    .Logo img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .Logo h1 {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* DASHBOARD MENU */
+    .DashboardControls {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 120px);
+      overflow: hidden;
+    }
+
+    .MainButtons {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .LowerButtons {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      width: 100%;
+    }
+
+    .DashboardControls button {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #272727;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: left;
+      padding-left: 20px;
+      transition: background 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .DashboardControls button:hover {
+      background-color: #00aaff !important;
+      color: white;
+    }
+
+    .DashboardControls button.active {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .button-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    /* RIGHT CONTENT */
+    .RightContent {
+      width: 80%;
+      height: 100vh;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* WELCOME BANNER */
+    .WelcomeBanner {
+      background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+      padding: 20px;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+    }
+
+    .WelcomeBanner h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin-left: 10px;
+    }
+
+    /* APPOINTMENT CONTENT */
+    .AppointmentContent {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Doctor Header Section */
+    .DoctorHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    .BackButton {
+      background: none;
+      border: none;
+      color: #0066ff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    .BackButton:hover {
+      color: #00aaff;
+    }
+
+    .DoctorInfo {
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+
+    .DoctorInfo h2 {
+      font-size: 32px;
+      color: #0066ff;
+      margin-bottom: 10px;
+    }
+
+    .DoctorInfo h3 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .DoctorDescription {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 20px;
+      max-width: 100%;
+    }
+
+    .DoctorSchedule {
+      display: flex;
+      gap: 30px;
+      margin-top: 15px;
+    }
+
+    .ScheduleItem {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ScheduleItem .label {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 5px;
+    }
+
+    .ScheduleItem .value {
+      font-size: 16px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* Form Section */
+    .BookingForm {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-top: 20px;
+    }
+
+    .FormSection {
+      margin-bottom: 30px;
+    }
+
+    .FormSection h3 {
+      font-size: 20px;
+      color: #0066ff;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .FormRow {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .FormGroup {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .FormGroup label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .FormGroup input,
+    .FormGroup select,
+    .FormGroup textarea {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+
+    .FormGroup input:focus,
+    .FormGroup select:focus,
+    .FormGroup textarea:focus {
+      border-color: #00aaff;
+      outline: none;
+    }
+
+    .FormGroup textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .FileUpload {
+      border: 2px dashed #ddd;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border 0.3s;
+    }
+
+    .FileUpload:hover {
+      border-color: #00aaff;
+    }
+
+    .FileUpload input {
+      display: none;
+    }
+
+    .FileUploadLabel {
+      font-size: 16px;
+      color: #777;
+    }
+
+    .FileNote {
+      font-size: 14px;
+      color: #999;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .BookNowButton {
+      background-color: #2b4257;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .BookNowButton:hover {
+      background-color: #0066ff;
+    }
+
+    /* MODAL STYLES */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #00aaff;
+    }
+
+    .modal-header h2 {
+      color: #0066ff;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #666;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-button:hover {
+      color: #ff4444;
+    }
+
+    .modal-body {
+      margin-bottom: 25px;
+    }
+
+    .appointment-summary {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .summary-label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .summary-value {
+      color: #333;
+      text-align: right;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+    }
+
+    .modal-button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-button.confirm {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .modal-button.confirm:hover {
+      background-color: #0066ff;
+    }
+
+    .modal-button.cancel {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .modal-button.cancel:hover {
+      background-color: #5a6268;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .DoctorHeader {
+        flex-direction: column;
+      }
+
+      .DoctorInfo {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+
+      .FormRow {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .DoctorSchedule {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .modal-content {
+        margin: 20% auto;
+        width: 95%;
+        padding: 20px;
+      }
+
+      .modal-buttons {
+        flex-direction: column;
+      }
+    }
+
+    .doctorimagename img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: 20px;
+      vertical-align: middle;
+    }
+
+    .doctorimagename h3 {
+      font-size: 50px;
+      color: #333;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LEFT SIDEBAR -->
+  <div class="LeftDashboard">
+    <div class="Logo">
+      <img src="assets/Logo-Notitle.png" alt="Logo">
+      <h1>HealthCheck</h1>
+    </div>
+
+    <div class="DashboardControls">
+      <div class="MainButtons">
+        <button class="nav-btn" data-page="home"><span class="button-icon">🏠</span> Home</button>
+        <button class="nav-btn" data-page="services"><span class="button-icon">🩺</span> Services</button>
+        <button class="nav-btn" data-page="status"><span class="button-icon">📊</span> Status</button>
+        <button class="nav-btn active" data-page="appointments"><span class="button-icon">📅</span>
+          Appointments</button>
+        <button class="nav-btn" data-page="account"><span class="button-icon">👤</span> Account</button>
+      </div>
+
+      <div class="LowerButtons">
+        
+        <button class="nav-btn" data-page="logout"><span class="button-icon">🚪</span> Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT CONTENT -->
+  <div class="RightContent">
+    <div class="WelcomeBanner">
+      <h1>Welcome back,<br>John Cena</h1>
+    </div>
+
+    <div class="AppointmentContent">
+      <!-- Doctor Information Section -->
+      <div class="DoctorHeader">
+        <button class="BackButton" id="backButton">
+          <span class="button-icon">←</span> Back
+        </button>
+
+        <div class="DoctorInfo">
+          <h2>General Physician</h2>
+
+          <div class="doctorimagename">
+            <h3>Mike Wazowski <img src="assets/mike wazow.jpg" alt=""></h3>
+          </div>
+
+          <div class="DoctorDescription">
+            <p>Laidback physician with a strong background in Internal Medicine, delivering high-quality telehealth
+              consultations since 2021. Experienced in managing a broad spectrum of adult acute and chronic medical
+              conditions with a focus on evidence-based care. Possesses a keen specialization in both clinical and
+              occupational medicine, providing comprehensive assessments, medical clearances, return-to-work
+              evaluations, and continuity of care in remote settings.</p>
+          </div>
+
+          <div class="DoctorSchedule">
+            <div class="ScheduleItem">
+              <span class="label">Availability</span>
+              <span class="value">Mon - Fri</span>
+            </div>
+            <div class="ScheduleItem">
+              <span class="label">Hours</span>
+              <span class="value">8 am - 5 pm</span>
+            </div>
+            <div class="ScheduleItem">
+              <span class="label">Duration</span>
+              <span class="value">30 mins</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Form -->
+      <div class="BookingForm">
+        <div class="FormSection">
+          <h3>Personal Information</h3>
+          <div class="FormRow">
+            <div class="FormGroup">
+              <label>First Name</label>
+              <input type="text" value="John" readonly>
+            </div>
+            <div class="FormGroup">
+              <label>Last Name</label>
+              <input type="text" value="Cena" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="FormSection">
+          <div class="FormRow">
+            <div class="FormGroup">
+              <label>Email Address</label>
+              <input type="email" value="john.cena@example.com" readonly>
+            </div>
+            <div class="FormRow" style="flex: 1; gap: 20px;">
+              <div class="FormGroup" style="flex: 1;">
+                <label>Phone Number</label>
+                <input type="tel" value="092131231" readonly>
+              </div>
+              <div class="FormGroup" style="flex: 1;">
+                <label>Sex</label>
+                <select>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="FormSection">
+          <h3>Consultation Details</h3>
+          <div class="FormGroup">
+            <label>Reason for consultation</label>
+            <textarea placeholder="Please describe the reason for your consultation" id="consultationReason"></textarea>
+          </div>
+        </div>
+
+        <div class="FormSection">
+          <h3>Medical Documents</h3>
+          <div class="FormGroup">
+            <label>Attachments for Lab Results</label>
+            <div class="FileUpload" onclick="document.getElementById('fileInput').click()">
+              <input type="file" id="fileInput" multiple>
+              <div class="FileUploadLabel">Click to upload files or drag and drop</div>
+              <div class="FileNote">Please return all laboratory results in PDF format and do not exceed 5MB in size.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="BookNowButton" id="bookNowButton">Book Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmationModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Confirm Appointment</h2>
+        <button class="close-button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="appointment-summary">
+          <div class="summary-item">
+            <span class="summary-label">Doctor:</span>
+            <span class="summary-value">Dr. Mike Wazowski</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Service:</span>
+            <span class="summary-value">General Physician</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Patient:</span>
+            <span class="summary-value">John Cena</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Consultation Reason:</span>
+            <span class="summary-value" id="modalConsultationReason"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Duration:</span>
+            <span class="summary-value">30 minutes</span>
+          </div>
+        </div>
+        <p style="color: #666; font-size: 14px; text-align: center;">
+          Please review your appointment details before confirming.
+        </p>
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-button cancel">Cancel</button>
+        <button class="modal-button confirm">Confirm Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wait until DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Get all navigation buttons
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const backButton = document.getElementById('backButton');
+      const bookNowButton = document.getElementById('bookNowButton');
+      const modal = document.getElementById('confirmationModal');
+      const closeButton = document.querySelector('.close-button');
+      const cancelButton = document.querySelector('.modal-button.cancel');
+      const confirmButton = document.querySelector('.modal-button.confirm');
+      const consultationReason = document.getElementById('consultationReason');
+      const modalConsultationReason = document.getElementById('modalConsultationReason');
+
+      // Navigation function for sidebar
+      function navigateToPage(page) {
+        switch (page) {
+          case 'home':
+            window.location.href = "MainV2.html";
+            break;
+          case 'services':
+            window.location.href = "Services.html";
+            break;
+          case 'status':
+            window.location.href = "Status.html";
+            break;
+          case 'appointments':
+            // Already on appointments page, do nothing
+            console.log('Already on Appointments page');
+            break;
+          case 'account':
+            window.location.href = "Account.html";
+            break;
+          case 'call-center':
+            // For call center, use tel: link
+            if (confirm('Call HealthCheck Support at 1-800-HEALTHY?')) {
+              window.location.href = "tel:1-800-HEALTHY";
+            }
+            break;
+          case 'help':
+            window.location.href = "Help.html";
+            break;
+          case 'logout':
+            // Logout functionality
+            if (confirm('Are you sure you want to log out?')) {
+              window.location.href = "Login.html";
+            }
+            break;
+          default:
+            console.log('Unknown page:', page);
+        }
+      }
+
+      // Handle Back button
+      backButton.addEventListener('click', function () {
+        // Get the previous service from localStorage or go to services page
+        const previousService = localStorage.getItem('selectedService');
+        if (previousService && previousService.toLowerCase() === 'general physician') {
+          window.location.href = "Generalphysician_Doctors.html";
+        } else {
+          window.location.href = "Services.html";
+        }
+      });
+
+      // Handle Book Now button - show modal
+      bookNowButton.addEventListener('click', function () {
+        const reason = consultationReason.value.trim();
+        if (!reason) {
+          alert('Please describe the reason for your consultation.');
+          return;
+        }
+        
+        // Update modal with current consultation reason
+        modalConsultationReason.textContent = reason || 'Not specified';
+        
+        // Show modal
+        modal.style.display = 'block';
+      });
+
+      // Handle modal close
+      closeButton.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+
+      // Handle cancel button
+      cancelButton.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+
+      // Handle confirm button
+      confirmButton.addEventListener('click', function() {
+        // Here you would typically send the form data to a server
+        alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+        modal.style.display = 'none';
+        window.location.href = "Appointment.html";
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      // Add event listeners to all navigation buttons
+      navButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const page = this.getAttribute('data-page');
+          navigateToPage(page);
+        });
+      });
+
+      // Update active state based on current page
+      function updateActiveState() {
+        navButtons.forEach(button => {
+          button.classList.remove('active');
+        });
+
+        // Set current page as active (Appointments page in this case)
+        const currentPageButton = document.querySelector('.nav-btn[data-page="appointments"]');
+        if (currentPageButton) {
+          currentPageButton.classList.add('active');
+        }
+      }
+
+      // Initialize active state
+      updateActiveState();
+
+      // File upload functionality
+      document.getElementById('fileInput').addEventListener('change', function (e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+          const fileUploadLabel = document.querySelector('.FileUploadLabel');
+          fileUploadLabel.textContent = `${files.length} file(s) selected`;
+
+          // Check file sizes
+          let totalSize = 0;
+          for (let i = 0; i < files.length; i++) {
+            totalSize += files[i].size;
+          }
+
+          // 5MB limit
+          if (totalSize > 5 * 1024 * 1024) {
+            alert('Total file size exceeds 5MB. Please select smaller files.');
+            e.target.value = '';
+            fileUploadLabel.textContent = 'Click to upload files or drag and drop';
+          }
+        }
+      });
+
+      console.log('HealthCheck Booking Page initialized successfully');
+    });
+  </script>
+</body>
+
+</html>

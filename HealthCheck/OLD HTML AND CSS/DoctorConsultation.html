@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* LEFT DASHBOARD */
+    .LeftDashboard {
+      width: 20%;
+      height: 100vh;
+      background-color: #272727;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* LOGO SECTION */
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+
+    .Logo img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .Logo h1 {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* DASHBOARD MENU */
+    .DashboardControls {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 120px);
+      overflow: hidden;
+    }
+
+    .MainButtons {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .LowerButtons {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      width: 100%;
+    }
+
+    .DashboardControls button {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #272727;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: left;
+      padding-left: 20px;
+      transition: background 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .DashboardControls button:hover {
+      background-color: #00aaff !important;
+      color: white;
+    }
+
+    .DashboardControls button.active {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .button-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    /* WELCOME BANNER */
+    .WelcomeBanner {
+      background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+      padding: 20px;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+    }
+
+    .WelcomeBanner h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin-left: 10px;
+    }
+
+    /* RIGHT CONTENT */
+    .RightContent {
+      width: 80%;
+      height: 100vh;
+      background-color: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Consultation Management Styles */
+    .ConsultationManagement {
+      padding: 20px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .ConsultationHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .ConsultationHeader h2 {
+      font-size: 28px;
+      color: #333;
+    }
+
+    .StatusFilter {
+      display: flex;
+      gap: 10px;
+    }
+
+    .StatusFilter button {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background-color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .StatusFilter button.active {
+      background-color: #0066ff;
+      color: white;
+      border-color: #0066ff;
+    }
+
+    .ConsultationTable {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .ConsultationTable th,
+    .ConsultationTable td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .ConsultationTable th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .ConsultationTable tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    .StatusBadge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .StatusBadge.approved {
+      background-color: #e6f7ee;
+      color: #0c8c42;
+    }
+
+    .StatusBadge.declined {
+      background-color: #fde8e8;
+      color: #c53030;
+    }
+
+    .StatusBadge.pending {
+      background-color: #fff4e6;
+      color: #d97706;
+    }
+
+    .ActionButtons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .ActionButtons button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+
+    .ViewButton {
+      background-color: #0066ff;
+      color: white;
+    }
+
+    .ApproveButton {
+      background-color: #0c8c42;
+      color: white;
+    }
+
+    .DeclineButton {
+      background-color: #c53030;
+      color: white;
+    }
+
+    .ScheduleButton {
+      background-color: #8b5cf6;
+      color: white;
+    }
+
+    .ActionButtons button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Patient Details Modal */
+    .Modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ModalContent {
+      background-color: white;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 700px;
+      max-height: 80%;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .ModalHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .ModalHeader h3 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .CloseButton {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #777;
+    }
+
+    .PatientInfo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .InfoItem {
+      margin-bottom: 10px;
+    }
+
+    .InfoItem label {
+      font-weight: 600;
+      color: #555;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .InfoItem span {
+      color: #333;
+    }
+
+    .MedicalHistory {
+      margin-bottom: 20px;
+    }
+
+    .MedicalHistory h4 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .MedicalHistory textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    .ModalActions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .ModalActions button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .CancelButton {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .SaveButton {
+      background-color: #0066ff;
+      color: white;
+    }
+
+    /* Schedule Modal */
+    .ScheduleModal .ModalContent {
+      max-width: 500px;
+    }
+
+    .ScheduleForm {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .FormGroup {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .FormGroup label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .FormGroup input,
+    .FormGroup select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .DateTimeGroup {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .TimeSlots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .TimeSlot {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .TimeSlot:hover {
+      background-color: #f0f0f0;
+    }
+
+    .TimeSlot.selected {
+      background-color: #0066ff;
+      color: white;
+      border-color: #0066ff;
+    }
+
+    .ScheduleActions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .ScheduleActions button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .ConfirmButton {
+      background-color: #0c8c42;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LEFT SIDEBAR -->
+  <div class="LeftDashboard">
+    <div class="Logo">
+      <img src="assets/Logo-Notitle.png" alt="Logo">
+      <h1>HealthCheck</h1>
+    </div>
+
+    <div class="DashboardControls">
+      <div class="MainButtons">
+        <button class="nav-btn" data-page="home"><span class="button-icon">🏠</span> Home</button>
+        <button class="nav-btn active" data-page="consultations"><span class="button-icon">🩺</span>
+          Consultations</button>
+        <button class="nav-btn" data-page="appointments"><span class="button-icon">📅</span> Appointments</button>
+        <button class="nav-btn" data-page="account"><span class="button-icon">👤</span> Account</button>
+      </div>
+
+      <div class="LowerButtons">
+    
+        <button class="nav-btn" data-page="logout"><span class="button-icon">🚪</span> Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT CONTENT WITH CONSULTATION MANAGEMENT -->
+  <div class="RightContent">
+    <div class="WelcomeBanner">
+      <h1>Welcome back,<br>Dr. Mike Wazowski</h1>
+    </div>
+
+    <div class="ConsultationManagement">
+      <div class="ConsultationHeader">
+        <h2>My Consultations</h2>
+        <div class="StatusFilter">
+          <button class="active">All</button>
+          <button>Pending</button>
+          <button>Approved</button>
+          <button>Declined</button>
+        </div>
+      </div>
+
+      <table class="ConsultationTable">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Patient's Name</th>
+            <th>Sex</th>
+            <th>Age</th>
+            <th>Medical Record</th>
+            <th>Status</th>
+            <th>Scheduled Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1002</td>
+            <td>John Cena</td>
+            <td>M</td>
+            <td>36</td>
+            <td><button class="ViewButton">Open *</button></td>
+            <td><span class="StatusBadge approved">APPROVED</span></td>
+            <td>Mon, 15 Nov, 10:30 AM</td>
+            <td class="ActionButtons">
+              <button class="ViewButton">View</button>
+              <button class="ScheduleButton">Schedule</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1023</td>
+            <td>Michael Jackson</td>
+            <td>M</td>
+            <td>45</td>
+            <td><button class="ViewButton">Open *</button></td>
+            <td><span class="StatusBadge declined">DECLINED</span></td>
+            <td>-</td>
+            <td class="ActionButtons">
+              <button class="ViewButton">View</button>
+              <button class="ApproveButton">Approve</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1024</td>
+            <td>Kevin Hart</td>
+            <td>M</td>
+            <td>23</td>
+            <td><button class="ViewButton">Open *</button></td>
+            <td><span class="StatusBadge pending">PENDING</span></td>
+            <td>-</td>
+            <td class="ActionButtons">
+              <button class="ViewButton">View</button>
+              <button class="ApproveButton">Approve</button>
+              <button class="DeclineButton">Decline</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1025</td>
+            <td>Emma Watson</td>
+            <td>F</td>
+            <td>32</td>
+            <td><button class="ViewButton">Open *</button></td>
+            <td><span class="StatusBadge approved">APPROVED</span></td>
+            <td>-</td>
+            <td class="ActionButtons">
+              <button class="ViewButton">View</button>
+              <button class="ScheduleButton">Schedule</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PATIENT DETAILS MODAL -->
+  <div class="Modal" id="patientModal">
+    <div class="ModalContent">
+      <div class="ModalHeader">
+        <h3>Patient Details</h3>
+        <button class="CloseButton">&times;</button>
+      </div>
+
+      <div class="PatientInfo">
+        <div class="InfoItem">
+          <label>Booking ID</label>
+          <span id="modalBookingId">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Patient Name</label>
+          <span id="modalPatientName">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Sex</label>
+          <span id="modalSex">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Age</label>
+          <span id="modalAge">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Contact</label>
+          <span id="modalContact">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Email</label>
+          <span id="modalEmail">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Appointment Date</label>
+          <span id="modalDate">-</span>
+        </div>
+        <div class="InfoItem">
+          <label>Appointment Time</label>
+          <span id="modalTime">-</span>
+        </div>
+      </div>
+
+      <div class="MedicalHistory">
+        <h4>Medical History</h4>
+        <textarea id="modalMedicalHistory"
+          readonly>Patient has a history of hypertension and is currently taking medication. No known allergies. Last checkup was 6 months ago.</textarea>
+      </div>
+
+      <div class="MedicalHistory">
+        <h4>Current Symptoms</h4>
+        <textarea id="modalSymptoms"
+          readonly>Patient reports persistent headaches and dizziness for the past week. Blood pressure readings have been elevated.</textarea>
+      </div>
+
+      <div class="ModalActions">
+        <button class="CancelButton">Close</button>
+        <button class="SaveButton">Save Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE CONSULTATION MODAL -->
+  <div class="Modal ScheduleModal" id="scheduleModal">
+    <div class="ModalContent">
+      <div class="ModalHeader">
+        <h3>Schedule Consultation</h3>
+        <button class="CloseButton">&times;</button>
+      </div>
+
+      <div class="ScheduleForm">
+        <div class="FormGroup">
+          <label for="patientName">Patient Name</label>
+          <input type="text" id="patientName" readonly value="John Cena">
+        </div>
+
+        <div class="FormGroup">
+          <label for="consultationType">Consultation Type</label>
+          <select id="consultationType">
+            <option value="in-person">In-Person</option>
+            <option value="virtual">Virtual (Video Call)</option>
+            <option value="phone">Phone Consultation</option>
+          </select>
+        </div>
+
+        <div class="DateTimeGroup">
+          <div class="FormGroup">
+            <label for="consultationDate">Date</label>
+            <input type="date" id="consultationDate" min="">
+          </div>
+
+          <div class="FormGroup">
+            <label for="consultationDuration">Duration</label>
+            <select id="consultationDuration">
+              <option value="15">15 minutes</option>
+              <option value="30" selected>30 minutes</option>
+              <option value="45">45 minutes</option>
+              <option value="60">60 minutes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="FormGroup">
+          <label>Available Time Slots</label>
+          <div class="TimeSlots">
+            <div class="TimeSlot">9:00 AM</div>
+            <div class="TimeSlot">9:30 AM</div>
+            <div class="TimeSlot">10:00 AM</div>
+            <div class="TimeSlot">10:30 AM</div>
+            <div class="TimeSlot">11:00 AM</div>
+            <div class="TimeSlot">11:30 AM</div>
+            <div class="TimeSlot">2:00 PM</div>
+            <div class="TimeSlot">2:30 PM</div>
+            <div class="TimeSlot">3:00 PM</div>
+            <div class="TimeSlot">3:30 PM</div>
+            <div class="TimeSlot">4:00 PM</div>
+            <div class="TimeSlot">4:30 PM</div>
+          </div>
+        </div>
+
+        <div class="FormGroup">
+          <label for="consultationNotes">Notes (Optional)</label>
+          <textarea id="consultationNotes" rows="3" placeholder="Add any notes about this consultation..."></textarea>
+        </div>
+      </div>
+
+      <div class="ScheduleActions">
+        <button class="CancelButton">Cancel</button>
+        <button class="ConfirmButton">Confirm Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wait until DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Get all navigation buttons
+      const navButtons = document.querySelectorAll('.nav-btn');
+
+      // Navigation function
+      function navigateToPage(page) {
+        switch (page) {
+          case 'home':
+            window.location.href = "DoctorMain.html";
+            break;
+          case 'consultations':
+            // Already on consultations page, do nothing
+            console.log('Already on Consultations page');
+            break;
+          case 'appointments':
+            window.location.href = "DoctorAppointment.html";
+            break;
+          case 'account':
+            window.location.href = "DoctorProfile.html";
+            break;
+          case 'call-center':
+            // For call center, use tel: link
+            if (confirm('Call HealthCheck Support at 1-800-HEALTHY?')) {
+              window.location.href = "tel:1-800-HEALTHY";
+            }
+            break;
+          case 'help':
+            window.location.href = "DoctorHelp.html";
+            break;
+          case 'logout':
+            // Logout functionality
+            if (confirm('Are you sure you want to log out?')) {
+              window.location.href = "Login.html";
+            }
+            break;
+          default:
+            console.log('Unknown page:', page);
+        }
+      }
+
+      // Add event listeners to all navigation buttons
+      navButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const page = this.getAttribute('data-page');
+          navigateToPage(page);
+        });
+      });
+
+      // Update active state based on current page
+      function updateActiveState() {
+        navButtons.forEach(button => {
+          button.classList.remove('active');
+        });
+
+        // Set current page as active (Consultations page in this case)
+        const currentPageButton = document.querySelector('.nav-btn[data-page="consultations"]');
+        if (currentPageButton) {
+          currentPageButton.classList.add('active');
+        }
+      }
+
+      // Initialize active state
+      updateActiveState();
+
+      // Set minimum date to today
+      document.getElementById('consultationDate').min = new Date().toISOString().split('T')[0];
+
+      // Modal functionality
+      const patientModal = document.getElementById('patientModal');
+      const scheduleModal = document.getElementById('scheduleModal');
+      const closeButtons = document.querySelectorAll('.CloseButton');
+      const cancelButtons = document.querySelectorAll('.CancelButton');
+      const viewButtons = document.querySelectorAll('.ViewButton');
+      const scheduleButtons = document.querySelectorAll('.ScheduleButton');
+      const timeSlots = document.querySelectorAll('.TimeSlot');
+      const confirmButton = document.querySelector('.ConfirmButton');
+
+      // Open patient modal when View button is clicked
+      viewButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          patientModal.style.display = 'flex';
+        });
+      });
+
+      // Open schedule modal when Schedule button is clicked
+      scheduleButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          scheduleModal.style.display = 'flex';
+        });
+      });
+
+      // Close modals when X or Cancel is clicked
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          patientModal.style.display = 'none';
+          scheduleModal.style.display = 'none';
+        });
+      });
+
+      cancelButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          patientModal.style.display = 'none';
+          scheduleModal.style.display = 'none';
+        });
+      });
+
+      // Close modals when clicking outside the modal content
+      window.addEventListener('click', function (event) {
+        if (event.target === patientModal) {
+          patientModal.style.display = 'none';
+        }
+        if (event.target === scheduleModal) {
+          scheduleModal.style.display = 'none';
+        }
+      });
+
+      // Status filter functionality
+      const filterButtons = document.querySelectorAll('.StatusFilter button');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+
+          // In a real application, we would filter the table based on status
+          // For this demo, we'll just log the selected filter
+          console.log('Filter by:', this.textContent);
+        });
+      });
+
+      // Approve/Decline functionality
+      const approveButtons = document.querySelectorAll('.ApproveButton');
+      const declineButtons = document.querySelectorAll('.DeclineButton');
+
+      approveButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const row = this.closest('tr');
+          const statusCell = row.querySelector('.StatusBadge');
+
+          // Update status to approved
+          statusCell.textContent = 'APPROVED';
+          statusCell.className = 'StatusBadge approved';
+
+          // Change action buttons to include schedule option
+          const actionCell = row.querySelector('.ActionButtons');
+          actionCell.innerHTML = `
+            <button class="ViewButton">View</button>
+            <button class="ScheduleButton">Schedule</button>
+          `;
+
+          // Add event listeners to new buttons
+          actionCell.querySelector('.ViewButton').addEventListener('click', function () {
+            patientModal.style.display = 'flex';
+          });
+
+          actionCell.querySelector('.ScheduleButton').addEventListener('click', function () {
+            scheduleModal.style.display = 'flex';
+          });
+
+          // In a real application, we would send this update to the server
+          console.log('Approved consultation for:', row.cells[1].textContent);
+        });
+      });
+
+      declineButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const row = this.closest('tr');
+          const statusCell = row.querySelector('.StatusBadge');
+
+          // Update status to declined
+          statusCell.textContent = 'DECLINED';
+          statusCell.className = 'StatusBadge declined';
+
+          // Change action buttons
+          const actionCell = row.querySelector('.ActionButtons');
+          actionCell.innerHTML = `
+            <button class="ViewButton">View</button>
+            <button class="ApproveButton">Approve</button>
+          `;
+
+          // Add event listeners to new buttons
+          actionCell.querySelector('.ViewButton').addEventListener('click', function () {
+            patientModal.style.display = 'flex';
+          });
+
+          actionCell.querySelector('.ApproveButton').addEventListener('click', function () {
+            // Update status to approved
+            statusCell.textContent = 'APPROVED';
+            statusCell.className = 'StatusBadge approved';
+
+            // Change action buttons to include schedule option
+            actionCell.innerHTML = `
+              <button class="ViewButton">View</button>
+              <button class="ScheduleButton">Schedule</button>
+            `;
+
+            // Add event listeners to new buttons
+            actionCell.querySelector('.ViewButton').addEventListener('click', function () {
+              patientModal.style.display = 'flex';
+            });
+
+            actionCell.querySelector('.ScheduleButton').addEventListener('click', function () {
+              scheduleModal.style.display = 'flex';
+            });
+          });
+
+          // In a real application, we would send this update to the server
+          console.log('Declined consultation for:', row.cells[1].textContent);
+        });
+      });
+
+      // Time slot selection
+      timeSlots.forEach(slot => {
+        slot.addEventListener('click', function () {
+          // Remove selected class from all time slots
+          timeSlots.forEach(s => s.classList.remove('selected'));
+          // Add selected class to clicked time slot
+          this.classList.add('selected');
+        });
+      });
+
+      // Confirm schedule
+      confirmButton.addEventListener('click', function () {
+        const selectedTimeSlot = document.querySelector('.TimeSlot.selected');
+        const dateInput = document.getElementById('consultationDate');
+
+        if (!dateInput.value) {
+          alert('Please select a date for the consultation.');
+          return;
+        }
+
+        if (!selectedTimeSlot) {
+          alert('Please select a time slot for the consultation.');
+          return;
+        }
+
+        // Format the date for display
+        const date = new Date(dateInput.value);
+        const options = { weekday: 'short', day: 'numeric', month: 'short' };
+        const formattedDate = date.toLocaleDateString('en-US', options);
+
+        // Update the table with the scheduled time
+        const patientName = document.getElementById('patientName').value;
+        const rows = document.querySelectorAll('.ConsultationTable tbody tr');
+
+        rows.forEach(row => {
+          if (row.cells[1].textContent === patientName) {
+            row.cells[6].textContent = `${formattedDate}, ${selectedTimeSlot.textContent}`;
+          }
+        });
+
+        // Close the modal
+        scheduleModal.style.display = 'none';
+
+        // Show confirmation message
+        alert(`Consultation scheduled for ${patientName} on ${formattedDate} at ${selectedTimeSlot.textContent}`);
+
+        // Reset form
+        document.querySelectorAll('.TimeSlot').forEach(slot => slot.classList.remove('selected'));
+        document.getElementById('consultationNotes').value = '';
+      });
+
+      console.log('HealthCheck Doctor Consultations Page initialized successfully');
+    });
+  </script>
+</body>
+
+</html>

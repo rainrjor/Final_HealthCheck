@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Left side form */
+    .left {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f8f8f8;
+    }
+
+    /* Right side image */
+    .right {
+      width: 50%;
+      background: url('assets/logo.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+    }
+
+    .login-box {
+      width: 550px;
+      padding: 40px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .login-box input[type="email"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+    }
+
+    .remember-me input {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+      accent-color: #5a67d8;
+    }
+
+    .options a {
+      color: #5a67d8;
+      text-decoration: none;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-btn {
+      background: #5a67d8;
+      margin-bottom: 20px;
+    }
+
+    .login-btn:hover {
+      background: #4c51bf;
+    }
+
+
+
+
+    .signup-btn {
+      background: #414040;
+      margin-top: 10px;
+    }
+
+    .signup-btn:hover {
+      background: #333;
+    }
+
+
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .divider span {
+      margin: 0 10px;
+      color: #999;
+    }
+
+
+
+
+    /* Responsive design */
+    @media (max-width: 992px) {
+      .right {
+        display: none;
+      }
+
+      .left {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Left: Login form -->
+  <div class="left">
+    <div class="login-box">
+      <h2>Welcome to HealthCheck</h2>
+      <form>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+
+        <div class="options">
+          <label class="remember-me">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">LOGIN</button>
+
+      </form>
+
+      <div class="social-login">
+
+        <div class="divider"><span>Or</span></div>
+      </div>
+
+      <button type="button" class="signup-btn">🌐 SIGN UP</button>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- Right: Background image -->
+  <div class="right">
+    <!-- This area can contain an image or decorative element -->
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  // Wait until DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.querySelector("form");
+    const emailInput = document.querySelector("input[type='email']");
+    const passwordInput = document.querySelector("input[type='password']");
+    const signupBtn = document.querySelector(".signup-btn");
+
+    // Handle login form submission
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevents page reload
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      // Simple validation
+      if (email === "" || password === "") {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      // Basic email format check
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      // Password length check
+      if (password.length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return;
+      }
+
+      // ✅ Simulated login check (replace with real authentication later)
+      // if (email === "test@example.com" && password === "12345678") {
+      //   // Redirect to mainv2.html
+      //   window.location.href = "mainv2.html";
+      // } else {
+      //   alert("Invalid email or password.");
+      // }
+      // For now, just redirect to mainv2.html after validation
+
+
+      window.location.href = "mainv2.html";
+    });
+
+    // Handle signup button
+    signupBtn.addEventListener("click", () => {
+      window.location.href = "signup.html";
+    });
+  });
+</script>

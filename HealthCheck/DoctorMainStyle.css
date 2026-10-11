@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LEFT DASHBOARD */
+.LeftDashboard {
+  width: 20%;
+  height: 100vh;
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* LOGO SECTION */
+.Logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.Logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.Logo h1 {
+  font-size: 35px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* DASHBOARD MENU */
+.DashboardControls {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 120px);
+  overflow: hidden;
+}
+
+.MainButtons {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.LowerButtons {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  width: 100%;
+}
+
+.DashboardControls button {
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #272727;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 20px;
+  transition: background 0.3s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.DashboardControls button:hover {
+  background-color: #00aaff !important;
+  color: white;
+}
+
+.DashboardControls button.active {
+  background-color: #00aaff;
+  color: white;
+}
+
+.button-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* WELCOME BANNER */
+.WelcomeBanner {
+  background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+  padding: 20px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+}
+
+.WelcomeBanner h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-left: 10px;
+}
+
+/* RIGHT CONTENT */
+.RightContent {
+  width: 80%;
+  height: 100vh;
+  background: url('assets/Mainpage.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.Slogan h1 {
+  font-size: 80px;
+  color: #ffffff;
+  line-height: 1.2;
+  padding-top: 40px;
+  margin-left: 60px;
+}
+
+.Slogan p {
+  font-size: 30px;
+  color: #ffffff;
+  margin-left: 60px;
+}
+
+.BTNappointment {
+  position: absolute;
+  margin-top: 500px;
+  margin-left: 50px;
+}
+
+.BTNappointment button {
+  padding: 15px 30px;
+  font-size: 40px;
+  color: white;
+  background-color: #2b4257;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.BTNappointment button:hover {
+  background-color: #0066ff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}

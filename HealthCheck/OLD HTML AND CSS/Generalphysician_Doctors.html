@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* LEFT DASHBOARD */
+    .LeftDashboard {
+      width: 20%;
+      height: 100vh;
+      background-color: #272727;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* LOGO SECTION */
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+
+    .Logo img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .Logo h1 {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* DASHBOARD MENU */
+    .DashboardControls {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 120px);
+      overflow: hidden;
+    }
+
+    .MainButtons {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .LowerButtons {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      width: 100%;
+    }
+
+    .DashboardControls button {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #272727;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: left;
+      padding-left: 20px;
+      transition: background 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .DashboardControls button:hover {
+      background-color: #00aaff !important;
+      color: white;
+    }
+
+    .DashboardControls button.active {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    .button-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    /* RIGHT CONTENT */
+    .RightContent {
+      width: 80%;
+      height: 100vh;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* WELCOME BANNER */
+    .WelcomeBanner {
+      background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+      padding: 20px;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+    }
+
+    .WelcomeBanner h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin-left: 10px;
+    }
+
+    /* SERVICE CONTENT */
+    .ServiceContent {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .ServiceHeader {
+      margin-bottom: 30px;
+    }
+
+    .ServiceHeader h2 {
+      font-size: 36px;
+      color: #0066ff;
+      margin-bottom: 15px;
+    }
+
+    .ServiceDescription {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+      max-width: 800px;
+      margin-bottom: 40px;
+    }
+
+    /* DOCTORS GRID */
+    .DoctorsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .DoctorCard {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .DoctorCard:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .DoctorHeader {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .DoctorAvatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      overflow: hidden;
+    }
+
+    .DoctorAvatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .DoctorInfo h3 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .DoctorInfo p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .DoctorDetails {
+      margin-bottom: 20px;
+    }
+
+    .DoctorDetails p {
+      margin: 5px 0;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .ExpBadge {
+      display: inline-block;
+      background-color: #e6f2ff;
+      color: #0066ff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .BookButton {
+      width: 100%;
+      padding: 12px;
+      background-color: #2b4257;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .BookButton:hover {
+      background-color: #0066ff;
+    }
+
+    /* CASE STUDY SECTION */
+    .CaseStudy {
+      background-color: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .CaseStudy h3 {
+      font-size: 24px;
+      color: #0066ff;
+      margin-bottom: 15px;
+    }
+
+    .CaseStudy p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* RESPONSIVE ADJUSTMENTS */
+    @media (max-width: 1200px) {
+      .DoctorsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .DoctorsGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .DoctorHeader {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .DoctorAvatar {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LEFT SIDEBAR -->
+  <div class="LeftDashboard">
+    <div class="Logo">
+      <img src="assets/Logo-Notitle.png" alt="Logo">
+      <h1>HealthCheck</h1>
+    </div>
+
+    <div class="DashboardControls">
+      <div class="MainButtons">
+        <button class="nav-btn" data-page="home"><span class="button-icon">🏠</span> Home</button>
+        <button class="nav-btn active" data-page="services"><span class="button-icon">🩺</span> Services</button>
+        <button class="nav-btn" data-page="status"><span class="button-icon">📊</span> Status</button>
+        <button class="nav-btn" data-page="appointments"><span class="button-icon">📅</span> Appointments</button>
+        <button class="nav-btn" data-page="account"><span class="button-icon">👤</span> Account</button>
+      </div>
+
+      <div class="LowerButtons">
+       
+        <button class="nav-btn" data-page="logout"><span class="button-icon">🚪</span> Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT CONTENT -->
+  <div class="RightContent">
+    <div class="WelcomeBanner">
+      <h1>Welcome back,<br>John Cena</h1>
+    </div>
+
+    <div class="ServiceContent">
+      <div class="ServiceHeader">
+        <h2>General Physician</h2>
+        <div class="ServiceDescription">
+          <p>From everyday illnesses to long-term conditions, a general physician provides expert care for patients of
+            all ages. Whether it's preventive screenings, health advice, or managing chronic concerns, a general
+            physician is your first step toward better health and peace of mind.</p>
+        </div>
+      </div>
+
+      <div class="DoctorsGrid">
+        <!-- Doctor 1 - Using placeholder image -->
+        <div class="DoctorCard">
+          <div class="DoctorHeader">
+            <div class="DoctorAvatar">
+              <img src="assets/mike wazow.jpg" alt="Dr. Mike Wazowski">
+            </div>
+            <div class="DoctorInfo">
+              <h3>Mike Wazowski</h3>
+              <p>General Physician</p>
+            </div>
+          </div>
+          <div class="DoctorDetails">
+            <p><strong>Experience:</strong> <span class="ExpBadge">3 Years Exp</span></p>
+            <p><strong>Availability:</strong> Mon - Fri</p>
+            <p><strong>Hours:</strong> 8 am - 5 pm</p>
+          </div>
+          <button class="BookButton" data-doctor="Mike Wazowski">Book Now</button>
+        </div>
+
+        <!-- Doctor 2 - Using placeholder image -->
+        <div class="DoctorCard">
+          <div class="DoctorHeader">
+            <div class="DoctorAvatar">
+              <img src="assets/Johndoe.jpg" alt="Dr. John Doe">
+            </div>
+            <div class="DoctorInfo">
+              <h3>John Doe</h3>
+              <p>General Physician</p>
+            </div>
+          </div>
+          <div class="DoctorDetails">
+            <p><strong>Experience:</strong> <span class="ExpBadge">5 Years Exp</span></p>
+            <p><strong>Availability:</strong> Wed - Fri</p>
+            <p><strong>Hours:</strong> 8 am - 5 pm</p>
+          </div>
+          <button class="BookButton" data-doctor="John Doe">Book Now</button>
+        </div>
+
+        <!-- Doctor 3 - Using placeholder image -->
+        <div class="DoctorCard">
+          <div class="DoctorHeader">
+            <div class="DoctorAvatar">
+              <img src="assets/Johndoe.jpg" alt="Dr. John Doe">
+            </div>
+            <div class="DoctorInfo">
+              <h3>John Doe</h3>
+              <p>General Physician</p>
+            </div>
+          </div>
+          <div class="DoctorDetails">
+            <p><strong>Experience:</strong> <span class="ExpBadge">5 Years Exp</span></p>
+            <p><strong>Availability:</strong> Wed - Fri</p>
+            <p><strong>Hours:</strong> 8 am - 5 pm</p>
+          </div>
+          <button class="BookButton" data-doctor="John Doe">Book Now</button>
+        </div>
+
+        <!-- Doctor 4 - Using placeholder image -->
+        <div class="DoctorCard">
+          <div class="DoctorHeader">
+            <div class="DoctorAvatar">
+              <img src="assets/Johndoe.jpg" alt="Dr. John Doe">
+            </div>
+            <div class="DoctorInfo">
+              <h3>John Doe</h3>
+              <p>General Physician</p>
+            </div>
+          </div>
+          <div class="DoctorDetails">
+            <p><strong>Experience:</strong> <span class="ExpBadge">5 Years Exp</span></p>
+            <p><strong>Availability:</strong> Wed - Fri</p>
+            <p><strong>Hours:</strong> 8 am - 5 pm</p>
+          </div>
+          <button class="BookButton" data-doctor="John Doe">Book Now</button>
+        </div>
+      </div> <!-- End of DoctorsGrid -->
+    </div>
+  </div>
+
+  <script>
+    // Wait until DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Get all navigation buttons
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const bookButtons = document.querySelectorAll('.BookButton');
+
+      // Navigation function for sidebar
+      function navigateToPage(page) {
+        switch (page) {
+          case 'home':
+            window.location.href = "MainV2.html";
+            break;
+          case 'services':
+            window.location.href = "Services.html";
+            break;
+          case 'status':
+            window.location.href = "Status.html";
+            break;
+          case 'appointments':
+            window.location.href = "Appointments.html";
+            break;
+          case 'account':
+            window.location.href = "Account.html";
+            break;
+          case 'call-center':
+            // For call center, use tel: link
+            if (confirm('Call HealthCheck Support at 1-800-HEALTHY?')) {
+              window.location.href = "tel:1-800-HEALTHY";
+            }
+            break;
+          case 'help':
+            window.location.href = "Help.html";
+            break;
+          case 'logout':
+            // Logout functionality
+            if (confirm('Are you sure you want to log out?')) {
+              window.location.href = "Login.html";
+            }
+            break;
+          default:
+            console.log('Unknown page:', page);
+        }
+      }
+
+      // Function to handle Book Now button clicks
+      function handleBookNow(button) {
+        const doctorName = button.getAttribute('data-doctor');
+        const serviceName = "General Physician";
+        
+        if (confirm(`Book appointment with Dr. ${doctorName} for ${serviceName}?`)) {
+          // Store doctor and service info for the booking page
+          localStorage.setItem('selectedDoctor', doctorName);
+          localStorage.setItem('selectedService', serviceName);
+          window.location.href = "servicesbooking.html";
+        }
+      }
+
+      // Add event listeners to all navigation buttons
+      navButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const page = this.getAttribute('data-page');
+          navigateToPage(page);
+        });
+      });
+
+      // Add event listeners to Book Now buttons
+      bookButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          handleBookNow(this);
+        });
+      });
+
+      // Update active state based on current page
+      function updateActiveState() {
+        navButtons.forEach(button => {
+          button.classList.remove('active');
+        });
+
+        // Set current page as active (Services page in this case)
+        const currentPageButton = document.querySelector('.nav-btn[data-page="services"]');
+        if (currentPageButton) {
+          currentPageButton.classList.add('active');
+        }
+      }
+
+      // Initialize active state
+      updateActiveState();
+
+      console.log('HealthCheck General Physician Page initialized successfully');
+    });
+  </script>
+</body>
+
+</html>

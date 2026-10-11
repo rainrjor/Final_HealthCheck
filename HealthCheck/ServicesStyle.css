@@ -1,0 +1,245 @@
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .LeftDashboard {
+    width: 20%;
+    height: 100vh;
+    background-color: #272727;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* LOGO SECTION */
+  .Logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 100%;
+  }
+
+  .Logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .Logo h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  /* DASHBOARD MENU */
+  .DashboardControls {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 120px);
+    overflow: hidden;
+  }
+
+  .MainButtons {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .LowerButtons {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+    width: 100%;
+  }
+
+  .DashboardControls button {
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #272727;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 20px;
+    transition: background 0.3s;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .DashboardControls button:hover {
+    background-color: #00aaff !important;
+    color: white;
+  }
+
+  .DashboardControls button.active {
+    background-color: #00aaff;
+    color: white;
+  }
+
+  .button-icon {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
+  .RightContent {
+    width: 80%;
+    height: 100vh;
+    background-color: #f4f4f4;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .WelcomeBanner {
+    background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
+    padding: 20px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 106, 255, 0.2);
+  }
+
+  .WelcomeBanner h1 {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-left: 10px;
+  }
+
+  /* Services Content */
+  .ServicesContent {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+  }
+
+  .ServicesHeader {
+    margin-bottom: 30px;
+  }
+
+  .ServicesHeader h2 {
+    font-size: 32px;
+    color: #0066ff;
+    margin-bottom: 10px;
+  }
+
+  .ServicesHeader p {
+    font-size: 18px;
+    color: #666;
+    max-width: 800px;
+  }
+
+  .ServicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+  }
+
+  .ServiceCard {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ServiceCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .ServiceIcon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #0066ff;
+  }
+
+  .ServiceCard h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .ServiceCard p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .ServiceFeatures {
+    margin-top: 10px;
+    list-style-type: none;
+    flex-grow: 1;
+  }
+
+  .ServiceFeatures li {
+    padding: 5px 0;
+    font-size: 15px;
+    color: #555;
+    display: flex;
+    align-items: center;
+  }
+
+  .ServiceFeatures li:before {
+    content: "✓";
+    color: #00aaff;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+
+  .BookButton {
+    margin-top: auto;
+    padding: 12px;
+    background-color: #2b4257;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+  }
+
+  .BookButton:hover {
+    background-color: #0066ff;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .ServicesGrid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ServicesGrid {
+      grid-template-columns: 1fr;
+    }
+  }
